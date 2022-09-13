@@ -11,5 +11,7 @@ target/
 *.uml
 *.bak
 *.log*
+**/.DS_Store
 data/
+data3/
 jraft-core/src/test/resources/log4j2.xml

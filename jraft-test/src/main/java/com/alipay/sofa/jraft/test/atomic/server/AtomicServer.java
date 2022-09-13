@@ -118,6 +118,7 @@ public class AtomicServer {
 
     //for test
     public static void main(String[] arsg) throws Exception {
-        start("config/server.properties");
+        start("/Users/lizhitao/dp-wp/open-source/sofa-jraft/jraft-test/config/server.properties");
+        //        start("config/server.properties");
     }
 }

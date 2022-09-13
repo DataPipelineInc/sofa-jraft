@@ -22,22 +22,28 @@ import com.alipay.sofa.jraft.entity.PeerId;
  *
  * @author jiachun.fjc
  */
-public class ElectionBootstrap {
+public class ElectionBootstrap02 {
 
     // Start elections by 3 instance. Note that if multiple instances are started on the same machine,
     // the first parameter `dataPath` should not be the same.
-    public static void main(final String[] args) {
+    public static void main(String[] args) {
+//        args = listArgsCreateNode1();
+        args = listArgsCreateNode2();
+//        args = listArgsCreateNode3();
+
         if (args.length < 4) {
             System.out
-                .println("Usage : java com.alipay.sofa.jraft.example.election.ElectionBootstrap {dataPath} {groupId} {serverId} {initConf}");
+                    .println("Usage : java com.alipay.sofa.jraft.example.election.ElectionBootstrap {dataPath} {groupId} {serverId} {initConf}");
             System.out
-                .println("Example: java com.alipay.sofa.jraft.example.election.ElectionBootstrap /tmp/server1 election_test 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
+                    .println("Example: java com.alipay.sofa.jraft.example.election.ElectionBootstrap /tmp/server1 election_test 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
             System.exit(1);
         }
+
         final String dataPath = args[0];
         final String groupId = args[1];
         final String serverIdStr = args[2];
         final String initialConfStr = args[3];
+
 
         final ElectionNodeOptions electionOpts = new ElectionNodeOptions();
         electionOpts.setDataPath(dataPath);
@@ -63,5 +69,35 @@ public class ElectionBootstrap {
             }
         });
         node.init(electionOpts);
+    }
+
+    private static String[] listArgsCreateNode1() {
+        String[] args = new String[4];
+        args[0] = "/Users/lizhitao/dp-wp/open-source/sofa-jraft/jraft-example/data/node1";
+        args[1] = "default-group";
+        args[2] = "127.0.0.1:8081";
+        args[3] = "127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083";
+
+        return args;
+    }
+
+    private static String[] listArgsCreateNode2() {
+        String[] args = new String[4];
+        args[0] = "/Users/lizhitao/dp-wp/open-source/sofa-jraft/jraft-example/data/node2";
+        args[1] = "default-group";
+        args[2] = "127.0.0.1:8082";
+        args[3] = "127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083";
+
+        return args;
+    }
+
+    private static String[] listArgsCreateNode3() {
+        String[] args = new String[4];
+        args[0] = "/Users/lizhitao/dp-wp/open-source/sofa-jraft/jraft-example/data/node3";
+        args[1] = "default-group";
+        args[2] = "127.0.0.1:8083";
+        args[3] = "127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083";
+
+        return args;
     }
 }
