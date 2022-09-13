@@ -22,7 +22,7 @@ import com.alipay.sofa.jraft.entity.PeerId;
  *
  * @author zongtanghu
  */
-public class PriorityElectionBootstrap {
+public class PriorityElectionBootstrap03 {
 
     // Start elections by 3 instance. Note that if multiple instances are started on the same machine,
     // the first parameter `dataPath` should not be the same,
@@ -30,12 +30,16 @@ public class PriorityElectionBootstrap {
     // the third parameter `serverId` should be set ip and port with priority value, eg: 127.0.0.1:8081::100, and middle postion can be empty string,
     // the fourth parameter `initialConfStr` should be set the all of endpoints in raft cluster, eg : 127.0.0.1:8081::100,127.0.0.1:8082::40,127.0.0.1:8083::40.
 
-    public static void main(final String[] args) {
+    public static void main(String[] args) {
+        args = listArgsCreateNode1();
+//        args = listArgsCreateNode2();
+//        args = listArgsCreateNode3();
+
         if (args.length < 4) {
             System.out
-                .println("Usage : java com.alipay.sofa.jraft.example.priorityelection.PriorityElectionBootstrap {dataPath} {groupId} {serverId} {initConf}");
+                    .println("Usage : java com.alipay.sofa.jraft.example.priorityelection.PriorityElectionBootstrap {dataPath} {groupId} {serverId} {initConf}");
             System.out
-                .println("Example: java com.alipay.sofa.jraft.example.priorityelection.PriorityElectionBootstrap /tmp/server1 election_test 127.0.0.1:8081::100 127.0.0.1:8081::100,127.0.0.1:8082::40,127.0.0.1:8083::40");
+                    .println("Example: java com.alipay.sofa.jraft.example.priorityelection.PriorityElectionBootstrap /tmp/server1 election_test 127.0.0.1:8081::100 127.0.0.1:8081::100,127.0.0.1:8082::40,127.0.0.1:8083::40");
             System.exit(1);
         }
         final String dataPath = args[0];
@@ -61,7 +65,7 @@ public class PriorityElectionBootstrap {
                 int port = serverId.getPort();
 
                 System.out.println("[PriorityElectionBootstrap] Leader's ip is: " + ip + ", port: " + port
-                                   + ", priority: " + priority);
+                        + ", priority: " + priority);
                 System.out.println("[PriorityElectionBootstrap] Leader start on term: " + leaderTerm);
             }
 
@@ -73,4 +77,33 @@ public class PriorityElectionBootstrap {
         node.init(priorityElectionOpts);
     }
 
+    private static String[] listArgsCreateNode1() {
+        String[] args = new String[4];
+        args[0] = "/Users/lizhitao/dp-wp/open-source/sofa-jraft/jraft-example/data/node1";
+        args[1] = "default-group";
+        args[2] = "127.0.0.1:8081";
+        args[3] = "127.0.0.1:8081::100 127.0.0.1:8081::100,127.0.0.1:8082::40,127.0.0.1:8083::40";
+
+        return args;
+    }
+
+    private static String[] listArgsCreateNode2() {
+        String[] args = new String[4];
+        args[0] = "/Users/lizhitao/dp-wp/open-source/sofa-jraft/jraft-example/data/node2";
+        args[1] = "default-group";
+        args[2] = "127.0.0.1:8082";
+        args[3] = "127.0.0.1:8081::100 127.0.0.1:8081::100,127.0.0.1:8082::40,127.0.0.1:8083::40";
+
+        return args;
+    }
+
+    private static String[] listArgsCreateNode3() {
+        String[] args = new String[4];
+        args[0] = "/Users/lizhitao/dp-wp/open-source/sofa-jraft/jraft-example/data/node3";
+        args[1] = "default-group";
+        args[2] = "127.0.0.1:8083";
+        args[3] = "127.0.0.1:8081::100 127.0.0.1:8081::100,127.0.0.1:8082::40,127.0.0.1:8083::40";
+
+        return args;
+    }
 }
